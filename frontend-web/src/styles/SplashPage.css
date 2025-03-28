@@ -1,0 +1,120 @@
+/* SplashPage.css */
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.logo-container {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.search-container {
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.rescue-dropdown {
+  width: 100%;
+  height: 3rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+}
+
+.search-button {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #43a047;
+}
+
+.search-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.featured-container {
+  width: 100%;
+}
+
+.featured-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.featured-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.featured-group {
+  padding: 0.75rem 1rem;
+  background-color: #f1f8e9;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 0.75rem;
+}
+
+.featured-group:hover {
+  background-color: #e8f5e9;
+}
+
+.group-location {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .splash-container {
+    padding: 1rem;
+  }
+  
+  .app-title {
+    font-size: 2rem;
+  }
+}
