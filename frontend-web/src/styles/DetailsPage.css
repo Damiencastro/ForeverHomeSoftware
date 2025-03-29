@@ -1,0 +1,195 @@
+/* DetailsPage.css */
+.details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .details-title {
+    font-size: 1.5rem;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .spacer {
+    width: 70px; /* To balance the back button */
+  }
+  
+  .details-content {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    overflow: hidden;
+    padding-bottom: 2rem;
+  }
+  
+  .details-image-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .details-animal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .details-section {
+    background-color: white;
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+    color: #333;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+  
+  .info-value {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .details-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .compatibility-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .compatibility-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .compatibility-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .compatibility-value {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .details-navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .details-nav-button {
+    flex: 1;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75rem 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .details-nav-button:hover {
+    background-color: #43a047;
+  }
+  
+  .contact-section {
+    background-color: #f0f8ff;
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+  }
+  
+  .contact-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .loading-container, .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+  }
+  
+  .loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (max-width: 600px) {
+    .info-grid, .compatibility-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .details-navigation-buttons {
+      flex-direction: column;
+    }
+  }

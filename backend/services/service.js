@@ -1,3 +1,4 @@
+
 const db = require('../db')
 
 module.exports.getAllFosters = async () => {
@@ -54,4 +55,5 @@ module.exports.getAllHousetrained = async () => {
     const [housetrained] = await db.query("SELECT * FROM Housetrained;")
         .catch(err => console.log(err))
     return housetrained;
+
 }
