@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchAnimalById, fetchAnimalBehavior } from '../services/api';
 import '../styles/BehaviorPage.css';
+import AnimalImage from './AnimalImage';
 
 const BehaviorPage = () => {
   // Get animal ID from URL params
@@ -88,10 +89,9 @@ const BehaviorPage = () => {
       <div className="behavior-content">
         {/* Small animal image for reference */}
         <div className="behavior-image-container">
-          <img
+          <AnimalImage
+            animal={animal}
             className="behavior-animal-image"
-            src={animal.image || 'https://via.placeholder.com/400x150?text=No+Image'}
-            alt={animal.name}
           />
         </div>
         

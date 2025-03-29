@@ -11,6 +11,7 @@ import HealthPage from './components/HealthPage';
 import BehaviorPage from './components/BehaviorPage';
 import FilterPage from './components/FilterPage';
 import './App.css';
+import './styles/styles.css';
 
 function App() {
   return (

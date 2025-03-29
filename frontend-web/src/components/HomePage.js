@@ -1,10 +1,11 @@
-// HomePage.js - Web Version
+// HomePage.js - Updated with breed-specific AnimalImage component
 // This component displays individual animals available for adoption
 // Users can navigate through animals and click to see more details
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { fetchAnimals, fetchRescueGroups } from '../services/api';
+import AnimalImage from './AnimalImage'; // Import the updated component
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -116,12 +117,11 @@ const HomePage = () => {
       </div>
       
       <div className="animal-card">
-        {/* Animal Image */}
+        {/* Animal Image - Using the updated AnimalImage component */}
         <div className="image-container">
-          <img
+          <AnimalImage
+            animal={currentAnimal}
             className="animal-image"
-            src={currentAnimal.image || 'https://via.placeholder.com/400x300?text=No+Image'}
-            alt={currentAnimal.name}
           />
         </div>
         
@@ -130,6 +130,21 @@ const HomePage = () => {
           <h2 className="animal-name">{currentAnimal.name}</h2>
           <p className="animal-breed">{currentAnimal.breed} • {currentAnimal.age}</p>
           <p className="animal-details">{currentAnimal.gender} • {currentAnimal.size}</p>
+          
+          {/* Descriptive tags */}
+          <div className="animal-tags">
+            <span className="animal-tag">{currentAnimal.energy}</span>
+            {currentAnimal.housetrained === "Yes" && 
+              <span className="animal-tag house-trained">House Trained</span>
+            }
+            {currentAnimal.dogsafe === "Yes" && 
+              <span className="animal-tag dog-friendly">Dog Friendly</span>
+            }
+            {currentAnimal.catsafe === "Yes" && 
+              <span className="animal-tag cat-friendly">Cat Friendly</span>
+            }
+          </div>
+          
           <p className="animal-description">{currentAnimal.description}</p>
         </div>
         

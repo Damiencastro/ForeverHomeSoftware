@@ -1,10 +1,10 @@
-// DetailsPage.js - Web Version
+// DetailsPage.js - Updated with breed-specific AnimalImage component
 // This component displays detailed information about an animal
-// Users can navigate to other detail screens from here
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchAnimalById } from '../services/api';
+import AnimalImage from './AnimalImage'; // Import the updated component
 import '../styles/DetailsPage.css';
 
 const DetailsPage = () => {
@@ -82,13 +82,23 @@ const DetailsPage = () => {
         <div className="spacer"></div> {/* Empty div for spacing */}
       </div>
       
+      {/* Full-width cover image */}
+      <div className="details-cover-image">
+        <AnimalImage
+          animal={animal}
+          className="cover-img"
+        />
+        <div className="cover-overlay">
+          <h1 className="cover-title">{animal.name}</h1>
+        </div>
+      </div>
+      
       <div className="details-content">
         {/* Animal image (smaller than on home page) */}
         <div className="details-image-container">
-          <img
+          <AnimalImage
+            animal={animal}
             className="details-animal-image"
-            src={animal.image || 'https://via.placeholder.com/400x200?text=No+Image'}
-            alt={animal.name}
           />
         </div>
         
@@ -141,15 +151,24 @@ const DetailsPage = () => {
           <div className="compatibility-grid">
             <div className="compatibility-item">
               <span className="compatibility-label">Children</span>
-              <span className="compatibility-value">{animal.childsafe}</span>
+              <div className="compatibility-status">
+                <span className={`status-indicator ${animal.childsafe.toLowerCase().includes('not') ? 'status-no' : 'status-yes'}`}></span>
+                <span className="compatibility-value">{animal.childsafe}</span>
+              </div>
             </div>
             <div className="compatibility-item">
               <span className="compatibility-label">Dogs</span>
-              <span className="compatibility-value">{animal.dogsafe}</span>
+              <div className="compatibility-status">
+                <span className={`status-indicator ${animal.dogsafe === 'Yes' ? 'status-yes' : 'status-no'}`}></span>
+                <span className="compatibility-value">{animal.dogsafe}</span>
+              </div>
             </div>
             <div className="compatibility-item">
               <span className="compatibility-label">Cats</span>
-              <span className="compatibility-value">{animal.catsafe}</span>
+              <div className="compatibility-status">
+                <span className={`status-indicator ${animal.catsafe === 'Yes' ? 'status-yes' : 'status-no'}`}></span>
+                <span className="compatibility-value">{animal.catsafe}</span>
+              </div>
             </div>
           </div>
         </div>
