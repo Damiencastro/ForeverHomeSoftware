@@ -49,7 +49,8 @@ const HomePage = () => {
         
         // Fetch animals with filters
         const data = await fetchAnimals(rescueGroupId, filterParams);
-        setAnimals(data);
+        console.log(data);
+        setAnimals(data[0]);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching animals:', error);
@@ -74,8 +75,9 @@ const HomePage = () => {
     }
   };
   
-  // Navigate to details page for current animal
   const goToDetails = () => {
+    // Store the current animal in localStorage
+    localStorage.setItem('currentAnimalDetails', JSON.stringify(currentAnimal));
     navigate(`/details/${currentAnimal.id}`);
   };
   
@@ -127,9 +129,9 @@ const HomePage = () => {
         
         {/* Animal Basic Information */}
         <div className="info-container">
-          <h2 className="animal-name">{currentAnimal.name}</h2>
-          <p className="animal-breed">{currentAnimal.breed} • {currentAnimal.age}</p>
-          <p className="animal-details">{currentAnimal.gender} • {currentAnimal.size}</p>
+          <h2 className="animal-name">{currentAnimal.foster_name}</h2>
+          <p className="animal-age">{currentAnimal.age_label}</p>
+          <p className="animal-details">{currentAnimal.catsafe_label} • {currentAnimal.childsafe_label}</p>
           
           {/* Descriptive tags */}
           <div className="animal-tags">

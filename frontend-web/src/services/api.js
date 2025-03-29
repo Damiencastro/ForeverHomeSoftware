@@ -2,7 +2,7 @@
 // This file provides functions to interact with the backend API
 
 // Define the base URL for API requests
-const API_BASE_URL = 'http://localhost:3000'; // Change this to match your backend URL
+const API_BASE_URL = 'http://localhost:5001'; // Change this to match your backend URL
 
 // Function to handle API responses and errors
 const handleResponse = async (response) => {
@@ -33,24 +33,10 @@ export const fetchRescueGroups = async () => {
 // Function to fetch animals for a specific rescue group
 export const fetchAnimals = async (rescueGroupId, filters = {}) => {
   try {
-    // Build query parameters for filters
-    const queryParams = new URLSearchParams();
-    queryParams.append('rescueGroupId', rescueGroupId);
-    
     console.log('Filters being sent to API:', filters);
     
-    // Add additional filters to query parameters
-    Object.entries(filters).forEach(([key, value]) => {
-      // Skip empty values, "All" for dropdowns, and 0 for numeric IDs
-      if (value !== undefined && value !== null && value !== '' && value !== 'All' && 
-          (typeof value === 'boolean' ? value : value !== 0)) {
-        // Convert value to string for URL parameters
-        queryParams.append(key, value.toString());
-        console.log(`Added parameter ${key}=${value.toString()}`);
-      }
-    });
     
-    const url = `${API_BASE_URL}/foster?${queryParams.toString()}`;
+    const url = `${API_BASE_URL}/foster`;
     console.log('Fetching from URL:', url);
     
     const response = await fetch(url);

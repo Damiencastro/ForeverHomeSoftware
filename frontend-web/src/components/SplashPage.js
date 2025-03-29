@@ -20,6 +20,7 @@ const SplashPage = () => {
       try {
         setLoading(true);
         const groups = await fetchRescueGroups();
+        console.log(groups);
         setRescueGroups(groups);
         setLoading(false);
       } catch (error) {

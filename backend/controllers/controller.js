@@ -24,7 +24,7 @@ router.get('/rescue-group', async (req, res) => {
 router.get('/foster', async (req, res) => {
   
     const animals = await service.getAllFosters(req.query)
-    res.send(fosters)
+    if(req.query == null) res.send(animals);
     
     console.log('Received query parameters:', req.query);
     
@@ -139,33 +139,34 @@ router.get('/foster', async (req, res) => {
     res.json(filteredData);
 })
 
-// Get a specific foster animal by ID
-router.get('/foster/:id', async (req, res) => {
-    const animalId = parseInt(req.params.id);
+// // Get a specific foster animal by ID
+// router.get('/foster/:id', async (req, res) => {
+//     const animalId = parseInt(req.params.id);
     
-    const animal = await service.getDogById(animalId);
-    if (!animal) {
-        return res.status(404).json({ message: 'Animal not found' });
-    }
-    return res.json(animal);
+//     /* When database is ready, use this:
+//     const animal = await service.getDogById(animalId);
+//     if (!animal) {
+//         return res.status(404).json({ message: 'Animal not found' });
+//     }
+//     return res.json(animal);
+//     */
     
-    // Mock data for now
-    const mockData = [
-        { id: 1, name: "Fluffy", image: "https://dog.ceo/api/breeds/image/random", age: "Puppy", breed: "Coon hound", gender: "Female", size: "Medium", description: "Loves to play fetch", energy: "Medium", childsafe: "Good with kids over 2", dogsafe: "No", catsafe: "No", housetrained: "Yes", rescue_group_id: 1, rescue_group_name: "Wine Country Greyhounds" },
-        { id: 2, name: "Spot", image: "https://dog.ceo/api/breeds/image/random", age: "Adult", breed: "Puggle", gender: "Male", size: "Small", description: "Sleeps most of the day", energy: "Low", childsafe: "Good with kids over 2", dogsafe: "No", catsafe: "No", housetrained: "Yes", rescue_group_id: 2, rescue_group_name: "Blessed Bow Wows" },
-        { id: 3, name: "Sir Barksalot", image: "https://dog.ceo/api/breeds/image/random", age: "Senior", breed: "Greyhound", gender: "Female", size: "Large", description: "Runs 100MPH or 0MPH. Not much between.", energy: "Couch potato", childsafe: "Good with kids over 10", dogsafe: "Yes", catsafe: "Yes", housetrained: "Yes", rescue_group_id: 1, rescue_group_name: "Wine Country Greyhounds" },
-    ];
+//     // Mock data for now
+//     const mockData = [
+//         { id: 1, name: "Fluffy", image: "https://images.dog.ceo/breeds/hound-walker/n02089867_1453.jpg", age: "Puppy", age_id: 1, breed: "Coon hound", gender: "Female", size: "Medium", description: "Loves to play fetch", energy: "Medium", childsafe: "Good with kids over 2", dogsafe: "No", catsafe: "No", housetrained: "Yes", rescue_group_id: 1, rescue_group_name: "Wine Country Greyhounds" },
+//         { id: 2, name: "Spot", image: "https://images.dog.ceo/breeds/puggle/IMG_153357.jpg", age: "Adult", age_id: 2, breed: "Puggle", gender: "Male", size: "Small", description: "Sleeps most of the day", energy: "Low", childsafe: "Good with kids over 2", dogsafe: "No", catsafe: "No", housetrained: "Yes", rescue_group_id: 2, rescue_group_name: "Blessed Bow Wows" },
+//         { id: 3, name: "Sir Barksalot", image: "https://images.dog.ceo/breeds/greyhound-italian/n02091032_1954.jpg", age: "Senior", age_id: 3, breed: "Greyhound", gender: "Female", size: "Large", description: "Runs 100MPH or 0MPH. Not much between.", energy: "Couch potato", childsafe: "Good with kids over 10", dogsafe: "Yes", catsafe: "Yes", housetrained: "Yes", rescue_group_id: 1, rescue_group_name: "Wine Country Greyhounds" },
+//     ];
     
-    if(!animal){
-      const animal = mockData.find(animal => animal.id === animalId);
-    }
+//     const animal = mockData.find(animal => animal.id === animalId);
     
-    if (!animal) {
-        return res.status(404).json({ message: 'Animal not found' });
-    }
+//     if (!animal) {
+//         return res.status(404).json({ message: 'Animal not found' });
+//     }
     
-    res.json(animal);
-})
+//     res.json(animal);
+// })
+
 
 // Get health information for a specific animal
 router.get('/foster/:id/health', async (req, res) => {

@@ -4,7 +4,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchAnimalById, fetchAnimalHealth } from '../services/api';
 import '../styles/HealthPage.css';
 import AnimalImage from './AnimalImage';
 
@@ -18,19 +17,48 @@ const HealthPage = () => {
   const [healthInfo, setHealthInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  // Fetch animal details and health information
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const animalData = await fetchAnimalById(parseInt(animalId));
-        const healthData = await fetchAnimalHealth(parseInt(animalId));
         
-        setAnimal(animalData);
-        setHealthInfo(healthData);
+        // Get animal from localStorage
+        const storedAnimal = localStorage.getItem('currentAnimalDetails');
+        let animalData;
+        
+        if (storedAnimal) {
+          animalData = JSON.parse(storedAnimal);
+          setAnimal(animalData);
+        } else {
+          // If not in localStorage, use a placeholder
+          animalData = {
+            id: parseInt(animalId),
+            name: "Unknown Animal",
+            breed: "Unknown Breed",
+            description: "Details not available."
+          };
+          setAnimal(animalData);
+        }
+        
+        // Create mock health data based on the animal
+        const mockHealthData = {
+          spayed_neutered: true,
+          vaccinated: true,
+          microchipped: true,
+          special_needs: false,
+          medical_notes: `${animalData.name} is in good health with no known issues.`,
+          dietary_needs: `Standard food appropriate for a ${animalData.breed}.`,
+          exercise_needs: `Regular exercise appropriate for ${animalData.name}'s age and size.`,
+          grooming_needs: 'Regular grooming to maintain coat health.',
+          last_vet_visit: '2025-03-15',
+          conditions: [],
+          medications: []
+        };
+        
+        setHealthInfo(mockHealthData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching animal health information:', error);
+        console.error('Error loading health information:', error);
         setLoading(false);
       }
     };

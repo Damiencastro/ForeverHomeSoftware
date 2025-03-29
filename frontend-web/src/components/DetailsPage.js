@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchAnimalById } from '../services/api';
 import AnimalImage from './AnimalImage'; // Import the updated component
 import '../styles/DetailsPage.css';
 
@@ -16,21 +15,42 @@ const DetailsPage = () => {
   const [animal, setAnimal] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  // Fetch animal details
   useEffect(() => {
-    const loadAnimalDetails = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchAnimalById(parseInt(animalId));
-        setAnimal(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching animal details:', error);
-        setLoading(false);
+    try {
+      setLoading(true);
+      
+      // Get animal from localStorage
+      const storedAnimal = localStorage.getItem('currentAnimalDetails');
+      
+      if (storedAnimal) {
+        const parsedAnimal = JSON.parse(storedAnimal);
+        setAnimal(parsedAnimal);
+      } else {
+        // If not found in localStorage, try to use mock data
+        // You can modify this with your own mock data if needed
+        const mockAnimal = {
+          id: parseInt(animalId),
+          name: "Unknown Animal",
+          breed: "Unknown Breed",
+          age: "Unknown",
+          gender: "Unknown",
+          size: "Medium",
+          description: "Details not available for this animal.",
+          childsafe: "Unknown",
+          dogsafe: "Unknown",
+          catsafe: "Unknown",
+          housetrained: "Unknown",
+          rescue_group_name: "Unknown Rescue"
+        };
+        
+        setAnimal(mockAnimal);
       }
-    };
-    
-    loadAnimalDetails();
+      
+      setLoading(false);
+    } catch (error) {
+      console.error('Error loading animal details:', error);
+      setLoading(false);
+    }
   }, [animalId]);
   
   // Navigate to Health page
@@ -82,16 +102,7 @@ const DetailsPage = () => {
         <div className="spacer"></div> {/* Empty div for spacing */}
       </div>
       
-      {/* Full-width cover image */}
-      <div className="details-cover-image">
-        <AnimalImage
-          animal={animal}
-          className="cover-img"
-        />
-        <div className="cover-overlay">
-          <h1 className="cover-title">{animal.name}</h1>
-        </div>
-      </div>
+      
       
       <div className="details-content">
         {/* Animal image (smaller than on home page) */}
@@ -152,14 +163,14 @@ const DetailsPage = () => {
             <div className="compatibility-item">
               <span className="compatibility-label">Children</span>
               <div className="compatibility-status">
-                <span className={`status-indicator ${animal.childsafe.toLowerCase().includes('not') ? 'status-no' : 'status-yes'}`}></span>
+              <span className={`status-indicator ${animal.childsafe ? (animal.childsafe.toLowerCase().includes('not') ? 'status-no' : 'status-yes') : 'status-unknown'}`}></span>
                 <span className="compatibility-value">{animal.childsafe}</span>
               </div>
             </div>
             <div className="compatibility-item">
               <span className="compatibility-label">Dogs</span>
               <div className="compatibility-status">
-                <span className={`status-indicator ${animal.dogsafe === 'Yes' ? 'status-yes' : 'status-no'}`}></span>
+                <span className={`status-indicator ${animal.dogsafe_label === 'Yes' ? 'status-yes' : 'status-no'}`}></span>
                 <span className="compatibility-value">{animal.dogsafe}</span>
               </div>
             </div>
@@ -201,7 +212,7 @@ const DetailsPage = () => {
           <p className="contact-text">
             For more information about {animal.name}, please contact the foster coordinator:
             <br/><br/>
-            <strong>Email:</strong> foster@{animal.rescue_group_name.toLowerCase().replace(/\s+/g, '')}.org<br/>
+            <strong>Email:</strong> foster@{animal.rescue_group_name ? animal.rescue_group_name.toLowerCase().replace(/\s+/g, '') : 'rescue'}.org<br/>
             <strong>Phone:</strong> (555) 123-4567
           </p>
         </div>
