@@ -22,10 +22,10 @@ router.get('/rescue-group', async (req, res) => {
 
 // Get all fosters
 router.get('/foster', async (req, res) => {
-    /* Add database call later
+  
     const animals = await service.getAllFosters(req.query)
     res.send(fosters)
-    */
+    
     console.log('Received query parameters:', req.query);
     
     const mockData = [
@@ -35,7 +35,7 @@ router.get('/foster', async (req, res) => {
     ]
     
     // Start with all animals
-    let filteredData = [...mockData];
+    let filteredData = [animals, ...mockData];
     
     // Apply filters based on query parameters
     const {
@@ -143,13 +143,11 @@ router.get('/foster', async (req, res) => {
 router.get('/foster/:id', async (req, res) => {
     const animalId = parseInt(req.params.id);
     
-    /* When database is ready, use this:
     const animal = await service.getDogById(animalId);
     if (!animal) {
         return res.status(404).json({ message: 'Animal not found' });
     }
     return res.json(animal);
-    */
     
     // Mock data for now
     const mockData = [
@@ -158,7 +156,9 @@ router.get('/foster/:id', async (req, res) => {
         { id: 3, name: "Sir Barksalot", image: "https://dog.ceo/api/breeds/image/random", age: "Senior", breed: "Greyhound", gender: "Female", size: "Large", description: "Runs 100MPH or 0MPH. Not much between.", energy: "Couch potato", childsafe: "Good with kids over 10", dogsafe: "Yes", catsafe: "Yes", housetrained: "Yes", rescue_group_id: 1, rescue_group_name: "Wine Country Greyhounds" },
     ];
     
-    const animal = mockData.find(animal => animal.id === animalId);
+    if(!animal){
+      const animal = mockData.find(animal => animal.id === animalId);
+    }
     
     if (!animal) {
         return res.status(404).json({ message: 'Animal not found' });
@@ -292,71 +292,68 @@ router.get('/foster/:id/behavior', async (req, res) => {
 
 // Get all age labels
 router.get('/age', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Puppy"},
-        {id: 2, label: "Adult"},
-        {id: 3, label: "Senior"}
-    ]
-    res.json(mockData);
+    try {
+        const ages = await service.getAllAges();
+        res.json(ages);
+    } catch (err) {
+        console.error("Error in /age endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 // Get all childsafe labels
 router.get('/childsafe', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Unknown"},
-        {id: 2, label: "Not safe with preteen kids"},
-        {id: 3, label: "Safe with kids of all ages"},
-        {id: 4, label: "Safe with kids over 2"},
-        {id: 5, label: "Safe with kids over 5"},
-        {id: 6, label: "Safe with kids over 10"}
-    ]
-    res.json(mockData);
+    try {
+        const childsafes = await service.getAllChildsafes();
+        res.json(childsafes);
+    } catch (err) {
+        console.error("Error in /childsafe endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 // Get all energy labels
 router.get('/energy', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Unknown"},
-        {id: 2, label: "Couch potato"},
-        {id: 3, label: "Energetic every now and again"},
-        {id: 4, label: "Needs exercise some days"},
-        {id: 5, label: "Needs exercise every day"},
-        {id: 6, label: "Fireball"}
-    ]
-    res.json(mockData);
+    try {
+        const energy = await service.getAllEnergy();
+        res.json(energy);
+    } catch (err) {
+        console.error("Error in /energy endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 // Get all dogsafe labels
 router.get('/dogsafe', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Unknown"},
-        {id: 2, label: "Best for a one-dog household"},
-        {id: 3, label: "Safe with dogs of similar size"},
-        {id: 4, label: "Safe with most other dogs"},
-        {id: 5, label: "Would do better in a house with other dogs"}
-    ]
-    res.json(mockData);
+    try {
+        const dogsafe = await service.getAllDogsafes();
+        res.json(dogsafe);
+    } catch (err) {
+        console.error("Error in /dogsafe endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 // Get all catsafe labels
 router.get('/catsafe', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Unknown"},
-        {id: 2, label: "No"},
-        {id: 3, label: "Yes"}
-    ]
-    res.json(mockData);
+    try {
+        const catsafes = await service.getAllCatsafes();
+        res.json(catsafes);
+    } catch (err) {
+        console.error("Error in /catsafe endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 // Get all housetrained labels
 router.get('/housetrained', async (req, res) => {
-    const mockData = [
-        {id: 1, label: "Unknown"},
-        {id: 2, label: "No"},
-        {id: 3, label: "Yes"},
-        {id: 4, label: "In progress"}
-    ]
-    res.json(mockData);
+    try {
+        const housetrained = await service.getAllHousetrained();
+        res.json(housetrained);
+    } catch (err) {
+        console.error("Error in /housetrained endpoint:", err);
+        res.status(500).json({error: "Internal server error"});
+    }
 })
 
 module.exports = router
